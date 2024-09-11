@@ -20,7 +20,7 @@ __global__ void sum(const float* a, const float* b, float* c)
     c[j] = a[j] + b[j];
 }
 
-const int n = 1000000;
+const int n = 10;
 
 __managed__ float vector_a[n], float vector_b[n], float vector_c[n], float vector_d[n];
 
@@ -38,6 +38,7 @@ int main()
     int valSize;
     std::string buffer;
     in >> buffer;
+    in2 >> buffer;
     valSize = std::stoi(buffer);
 
     if (valSize >= n)
@@ -48,6 +49,7 @@ int main()
             in >> buffer;
             vector_a[i] = std::stof(buffer);
             //vector_a[i] = i;
+            in2 >> buffer;
             vector_b[i] = std::stof(buffer);
             //vector_b[i] = i;
         }
@@ -68,7 +70,7 @@ int main()
 
         for (int i = 0; i < log2(n); i++)
         {
-            sum << <bl, th >> > (vector_a, vector_b, vector_c);
+            sum <<<bl, th >>> (vector_a, vector_b, vector_c);
         }
 
         cudaDeviceSynchronize();
