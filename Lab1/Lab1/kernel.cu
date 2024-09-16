@@ -20,7 +20,7 @@ __global__ void sum(const float* a, const float* b, float* c)
     c[j] = a[j] + b[j];
 }
 
-const int n = 10;
+const int n = 4000000;
 
 __managed__ float vector_a[n], float vector_b[n], float vector_c[n], float vector_d[n];
 
@@ -68,10 +68,9 @@ int main()
 
         //std::cout << bl << " " << th << std::endl << std::endl;
 
-        for (int i = 0; i < log2(n); i++)
-        {
-            sum <<<bl, th >>> (vector_a, vector_b, vector_c);
-        }
+        
+        sum <<<bl, th >>> (vector_a, vector_b, vector_c);
+        
 
         cudaDeviceSynchronize();
 
