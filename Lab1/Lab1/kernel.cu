@@ -20,6 +20,12 @@ __global__ void sum(const float* a, const float* b, float* c)
     c[j] = a[j] + b[j];
 }
 
+__host__ float sumH(const float a, const float b)
+{
+    float res = a + b;
+    return res;
+}
+
 const int n = 4000000;
 
 __managed__ float vector_a[n], float vector_b[n], float vector_c[n], float vector_d[n];
@@ -81,7 +87,7 @@ int main()
 
         for (int i = 0; i < n; i++)
         {
-            vector_d[i] = vector_a[i] + vector_b[i];
+            vector_d[i] = sumH(vector_a[i], vector_b[i]);
         }
 
         for (int i = 0; i < n; i++)
