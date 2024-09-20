@@ -19,6 +19,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
+add_subdirectory(include)
 
 add_executable(cuda_executable
     ${CMAKE_CURRENT_SOURCE_DIR}/kernel.cu
@@ -29,7 +30,7 @@ add_executable(test_exec
 )
 
 target_include_directories(test_exec PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/include
 )
 
 target_link_libraries(test_exec PUBLIC
