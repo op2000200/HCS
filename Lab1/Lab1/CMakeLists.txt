@@ -24,9 +24,13 @@ add_executable(cuda_executable
     ${CMAKE_CURRENT_SOURCE_DIR}/kernel.cu
 )
 
-target_link_libraries(cuda_executable PUBLIC
+add_executable(test_exec
+    ${CMAKE_CURRENT_SOURCE_DIR}/test.cu
+)
+
+target_link_libraries(test_exec PUBLIC
     GTest::gtest_main
 )
 
 enable_testing()
-gtest_discover_tests(test.cu)
+gtest_discover_tests(test_exec)
