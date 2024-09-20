@@ -29,4 +29,4 @@ target_link_libraries(cuda_executable PUBLIC
 )
 
 enable_testing()
-gtest_discover_tests(cuda-sample1-test)
+gtest_discover_tests(test.cu)
