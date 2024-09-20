@@ -35,6 +35,7 @@ __managed__ float vector_d[n];
 
 int main()
 {
+	/*
     std::ifstream in;
     std::ifstream in2;
     std::ofstream out1;
@@ -43,6 +44,7 @@ int main()
     in2.open("val2.txt");
     out1.open("resgpu.txt");
     out2.open("rescpu.txt");
+	*/
 	std::cout << "assignmnetn";
 	vector_a[0] = 1.0;
 	std::cout << "assignmnetn completed";
@@ -112,8 +114,10 @@ int main()
     {
         std::cout << "error" << std::endl;
     }
+	/*
     in.close();
     in2.close();
     out1.close();
     out2.close();
+	*/
 }
