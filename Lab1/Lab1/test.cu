@@ -7,9 +7,10 @@ TEST(SumTest, OnePlusOneEqualsTwoCPU) {
 }
 
 TEST(SumTest, OnePlusOneEqualsTwoCUDA) {
-	const float* a = 1.0, b = 1.0, c = 0.0;
+	const float* a = 1.f, b = 1.f;
+	float* c = 0.f;
 	sum(a,b,c);
-	EXPECT_EQ(c, 2.0);
+	EXPECT_EQ(c, 2.f);
 }
 
 
