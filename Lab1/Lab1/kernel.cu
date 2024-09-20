@@ -53,6 +53,7 @@ int main()
     if (valSize >= n)
     {
         std::cout << "working" << std::endl;
+        std::cout << "Will execute " << n << " times...\n";
         for (int i = 0; i < n; i++)
         {
             std::cout << "LUL " << i << std::endl;
