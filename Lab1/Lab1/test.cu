@@ -9,7 +9,7 @@ TEST(SumTest, OnePlusOneEqualsTwoCPU) {
 TEST(SumTest, OnePlusOneEqualsTwoCUDA) {
 	float a = 1.f, b = 1.f;
 	float c;
-	sum<<<1, 1>>>(&a, &b, &c);
+	sum<<<1, 1>>>(&a, &b, *c);
 	EXPECT_EQ(c, 2.f);
 }
 
