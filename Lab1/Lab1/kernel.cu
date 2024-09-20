@@ -47,9 +47,7 @@ int main()
     out2.open("rescpu.txt");
 	*/
 	std::cout << "assignmnetn";
-	vector_a[0] = 1.0;
 	std::cout << "assignmnetn completed";
-	std::cout << vector_a[0] << " RANDOM CHECK ";
 	
     int valSize;
     std::string buffer;
