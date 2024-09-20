@@ -26,7 +26,7 @@ __host__ float sumH(const float a, const float b)
     return res;
 }
 
-const int n = 20;
+const int n = 4000000;
 
 __managed__ float vector_a[n];
 __managed__ float vector_b[n];
@@ -55,12 +55,8 @@ int main()
 
     if (valSize >= n)
     {
-        std::cout << "working" << std::endl;
-        std::cout << "Will execute " << n << " times...\n";
         for (int i = 0; i < n; i++)
         {
-            std::cout << "LUL " << i << std::endl;
-		
             in >> buffer;
             vector_a[i] = std::stof(buffer);
             //vector_a[i] = i;
