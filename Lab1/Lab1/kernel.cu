@@ -46,8 +46,6 @@ int main()
     out1.open("resgpu.txt");
     out2.open("rescpu.txt");
 
-	std::cout << "assignmnetn";
-	std::cout << "assignmnetn completed";
 	
     int valSize;
     std::string buffer;
@@ -63,11 +61,11 @@ int main()
         {
             std::cout << "LUL " << i << std::endl;
 		
-            //in >> buffer;
-            //vector_a[i] = std::stof(buffer);
+            in >> buffer;
+            vector_a[i] = std::stof(buffer);
             //vector_a[i] = i;
-            //in2 >> buffer;
-            //vector_b[i] = std::stof(buffer);
+            in2 >> buffer;
+            vector_b[i] = std::stof(buffer);
             //vector_b[i] = i;
         }
 
@@ -113,10 +111,10 @@ int main()
     {
         std::cout << "error" << std::endl;
     }
-	/*
+	
     in.close();
     in2.close();
     out1.close();
     out2.close();
-	*/
+	
 }
