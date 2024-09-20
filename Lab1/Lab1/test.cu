@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <iostream>
-#include <kernel.h>
+#include <kernel.cu>
 
 TEST(SumTest, OnePlusOneEqualsTwo) {
   EXPECT_EQ(sumH(1,1), 2);
