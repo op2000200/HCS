@@ -60,10 +60,10 @@ int main()
 
             //in >> buffer;
             //vector_a[i] = std::stof(buffer);
-            vector_a[i] = i;
+            //vector_a[i] = i;
             //in2 >> buffer;
             //vector_b[i] = std::stof(buffer);
-            vector_b[i] = i;
+            //vector_b[i] = i;
         }
 
         std::cout << "TEST TEST TEST" << std::endl;
