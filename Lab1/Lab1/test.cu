@@ -6,10 +6,12 @@ TEST(SumTest, OnePlusOneEqualsTwoCPU) {
   EXPECT_EQ(sumH(1,1), 2);
 }
 
+__managed__ float a[32]; 
+__managed__ float b[32];
+__managed__ float c[32];
+
 TEST(SumTest, OnePlusOneEqualsTwoCUDA) {
-	__managed__ float a[32]; 
-	__managed__ float b[32];
-	__managed__ float c[32];
+
 	
 	a[0] = 1.f;
 	b[0] = 1.f;
