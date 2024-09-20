@@ -55,6 +55,8 @@ int main()
         std::cout << "working" << std::endl;
         for (int i = 0; i < n; i++)
         {
+            std::cout << "LUL " << i << std::endl;
+
             in >> buffer;
             //vector_a[i] = std::stof(buffer);
             vector_a[i] = i;
