@@ -2,11 +2,11 @@
 #include <iostream>
 #include <kernel.cu>
 
-TEST(SumTest, OnePlusOneEqualsTwo) {
+TEST(SumTest, OnePlusOneEqualsTwoCPU) {
   EXPECT_EQ(sumH(1,1), 2);
 }
 
-TEST(SumTest, OnePlusOneEqualsTwo) {
+TEST(SumTest, OnePlusOneEqualsTwoCUDA) {
 	const float* a = 1.0, b = 1.0, c = 0.0;
 	sum(a,b,c);
 	EXPECT_EQ(c, 2.0);
