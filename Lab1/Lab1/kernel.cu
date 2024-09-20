@@ -28,7 +28,10 @@ __host__ float sumH(const float a, const float b)
 
 const int n = 4000000;
 
-__managed__ float vector_a[n], float vector_b[n], float vector_c[n], float vector_d[n];
+__managed__ float vector_a[n];
+__managed__ float vector_b[n];
+__managed__ float vector_c[n];
+__managed__ float vector_d[n];
 
 int main()
 {
