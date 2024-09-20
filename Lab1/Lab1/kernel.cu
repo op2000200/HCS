@@ -43,7 +43,9 @@ int main()
     in2.open("val2.txt");
     out1.open("resgpu.txt");
     out2.open("rescpu.txt");
-	
+	std::cout << "assignmnetn";
+	vector_a[0] = 1.0;
+	std::cout << "assignmnetn completed";
 	std::cout << vector_a[0] << " RANDOM CHECK ";
 	
     int valSize;
@@ -59,7 +61,7 @@ int main()
         for (int i = 0; i < n; i++)
         {
             std::cout << "LUL " << i << std::endl;
-
+		
             //in >> buffer;
             //vector_a[i] = std::stof(buffer);
             //vector_a[i] = i;
