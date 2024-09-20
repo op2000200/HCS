@@ -43,7 +43,9 @@ int main()
     in2.open("val2.txt");
     out1.open("resgpu.txt");
     out2.open("rescpu.txt");
-
+	
+	std::cout << vector_a[0] << " RANDOM CHECK ";
+	
     int valSize;
     std::string buffer;
     in >> buffer;
