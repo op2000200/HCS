@@ -2,21 +2,27 @@
 #include <iostream>
 #include <kernel.cu>
 
-TEST(SumTest, OnePlusOneEqualsTwoCPU) {
+TEST(CPUTest, Test1) {
   EXPECT_EQ(sumH(1,1), 2);
 }
 
-__managed__ float a[32]; 
-__managed__ float b[32];
-__managed__ float c[32];
+TEST(CPUTest, Test2) {
+  EXPECT_EQ(sumH(2.045, 1.005), 2.05);
+}
 
-TEST(SumTest, OnePlusOneEqualsTwoCUDA) {
+TEST(CPUTest, Test3) {
+  EXPECT_EQ(sumH(1000.1000, 2000.2000), 3000.3000);
+}
 
-	
+__managed__ float a[1]; 
+__managed__ float b[1];
+__managed__ float c[1];
+
+TEST(CUDATest, OnePlusOneEqualsTwo) {
 	a[0] = 1.f;
 	b[0] = 1.f;
 	
-	sum<<<1, 32>>>(a, b, c);
+	sum<<<1, 1>>>(a, b, c);
 	cudaDeviceSynchronize();
 	
 	EXPECT_EQ(c[0], 2.f);
