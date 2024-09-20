@@ -28,6 +28,10 @@ add_executable(test_exec
     ${CMAKE_CURRENT_SOURCE_DIR}/test.cu
 )
 
+target_include_directories(test_exec PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
 target_link_libraries(test_exec PUBLIC
     GTest::gtest_main
 )
