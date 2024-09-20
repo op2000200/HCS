@@ -28,6 +28,7 @@ __managed__ float vector_b[n];
 __managed__ float vector_c[n];
 __managed__ float vector_d[n];
 
+/*
 int main()
 {
 	
@@ -108,3 +109,4 @@ int main()
     out2.close();
 	
 }
+*/
