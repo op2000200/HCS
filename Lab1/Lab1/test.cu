@@ -7,9 +7,9 @@ TEST(SumTest, OnePlusOneEqualsTwo) {
 }
 
 TEST(SumTest, OnePlusOneEqualsTwo) {
-	const float* a = 1, b = 1, c = 0;
-	sum(1,1);
-	EXPECT_EQ(c, 2);
+	const float* a = 1.0, b = 1.0, c = 0.0;
+	sum(a,b);
+	EXPECT_EQ(c, 2.0);
 }
 
 
