@@ -26,7 +26,7 @@ __host__ float sumH(const float a, const float b)
     return res;
 }
 
-const int n = 4000;
+const int n = 20;
 
 __managed__ float vector_a[n];
 __managed__ float vector_b[n];
@@ -58,10 +58,10 @@ int main()
         {
             std::cout << "LUL " << i << std::endl;
 
-            in >> buffer;
+            //in >> buffer;
             //vector_a[i] = std::stof(buffer);
             vector_a[i] = i;
-            in2 >> buffer;
+            //in2 >> buffer;
             //vector_b[i] = std::stof(buffer);
             vector_b[i] = i;
         }
