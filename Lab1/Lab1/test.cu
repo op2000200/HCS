@@ -3,15 +3,15 @@
 #include <kernel.cu>
 
 TEST(CPUTest, Test1) {
-  EXPECT_EQ(sumH(1,1), 2);
+  EXPECT_FLOAT_EQ(sumH(1,1), 2);
 }
 
 TEST(CPUTest, Test2) {
-  EXPECT_EQ(sumH(2.045, 1.005), 2.05);
+  EXPECT_FLOAT_EQ(sumH(2.045, 1.005), 3.05);
 }
 
 TEST(CPUTest, Test3) {
-  EXPECT_EQ(sumH(1000.1000, 2000.2000), 3000.3000);
+  EXPECT_FLOAT_EQ(sumH(1000.1000, 2000.2000), 3000.3000);
 }
 
 __managed__ float a[1]; 
@@ -25,7 +25,7 @@ TEST(CUDATest, OnePlusOneEqualsTwo) {
 	sum<<<1, 1>>>(a, b, c);
 	cudaDeviceSynchronize();
 	
-	EXPECT_EQ(c[0], 2.f);
+	EXPECT_FLOAT_EQ(c[0], 2.f);
 }
 
 
