@@ -7,8 +7,8 @@ TEST(SumTest, OnePlusOneEqualsTwoCPU) {
 }
 
 TEST(SumTest, OnePlusOneEqualsTwoCUDA) {
-	const float* a;
-	const float* b;
+	float* a;
+	float* b;
 	
 	a = 1.f;
 	b = 1.f;
