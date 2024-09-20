@@ -19,9 +19,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-add_executable(cuda_executable
-    ${CMAKE_CURRENT_SOURCE_DIR}/kernel.cu
-)
 
 add_executable(test_exec
     ${CMAKE_CURRENT_SOURCE_DIR}/test.cu
