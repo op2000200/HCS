@@ -55,6 +55,7 @@ int main()
 
     if (valSize >= n)
     {
+		std::cout << "working\n";
         for (int i = 0; i < n; i++)
         {
             in >> buffer;
@@ -64,8 +65,6 @@ int main()
             vector_b[i] = std::stof(buffer);
             //vector_b[i] = i;
         }
-
-        std::cout << "TEST TEST TEST" << std::endl;
 
         int bl, th;
         if (n > 1024)
