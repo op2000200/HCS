@@ -12,6 +12,8 @@ TEST(SumTest, OnePlusOneEqualsTwoCUDA) {
 	b[0] = 1.f;
 	float c[32];
 	sum<<<1, 32>>>(a, b, c);
+	cudaDeviceSynchronize();
+	
 	EXPECT_EQ(c[0], 2.f);
 }
 
