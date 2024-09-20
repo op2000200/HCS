@@ -8,11 +8,6 @@
 #include <fstream>
 #include <string>
 
-__global__ void add(int* a, int* b)
-{
-    int i = threadIdx.x;
-    //c[i] = a[i] + b[i];
-}
 
 __global__ void sum(const float* a, const float* b, float* c)
 {

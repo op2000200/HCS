@@ -23,3 +23,10 @@ FetchContent_MakeAvailable(googletest)
 add_executable(cuda_executable
     ${CMAKE_CURRENT_SOURCE_DIR}/kernel.cu
 )
+
+target_link_libraries(cuda_executable PUBLIC
+    GTest::gtest_main
+)
+
+enable_testing()
+gtest_discover_tests(cuda-sample1-test)
