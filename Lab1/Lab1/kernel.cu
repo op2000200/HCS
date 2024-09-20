@@ -40,12 +40,12 @@ int main()
     std::ifstream in2;
     std::ofstream out1;
     std::ofstream out2;
-	/*
+	
     in.open("val1.txt");
     in2.open("val2.txt");
     out1.open("resgpu.txt");
     out2.open("rescpu.txt");
-	*/
+
 	std::cout << "assignmnetn";
 	std::cout << "assignmnetn completed";
 	
