@@ -63,6 +63,8 @@ int main()
             //vector_b[i] = i;
         }
 
+        std::cout << "TEST TEST TEST" << std::endl;
+
         int bl, th;
         if (n > 1024)
         {
