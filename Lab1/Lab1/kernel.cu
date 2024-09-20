@@ -26,7 +26,7 @@ __host__ float sumH(const float a, const float b)
     return res;
 }
 
-const int n = 4000000;
+const int n = 4000;
 
 __managed__ float vector_a[n];
 __managed__ float vector_b[n];
