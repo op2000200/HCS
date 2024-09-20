@@ -19,20 +19,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-add_subdirectory(cuda-sample1-lib)
 
-add_executable(cuda-sample1-test
-    ${CMAKE_CURRENT_SOURCE_DIR}/tests/tests.cu
+add_executable(cuda_executable
+    ${CMAKE_CURRENT_SOURCE_DIR}/kernel.cu
 )
-
-target_include_directories(cuda-sample1-test PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/cuda-sample1-lib/include
-)
-
-target_link_libraries(cuda-sample1-test PUBLIC
-    cuda-sample1-lib
-    GTest::gtest_main
-)
-
-enable_testing()
-gtest_discover_tests(cuda-sample1-test)
