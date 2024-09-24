@@ -86,10 +86,6 @@ int main()
         elapsedTimeGPU = elapsedTimeGPU;
         std::cout << "Count: " << n << std::endl << "elapsed time GPU: " << elapsedTimeGPU << " ms" << std::endl;
 
-        //for (int i = 0; i < n; i++)
-        //{
-        //    out1 << vector_c[i] << std::endl;
-        //}
         std::chrono::steady_clock::time_point st = std::chrono::steady_clock::now();
         for (int i = 0; i < n; i++)
         {
@@ -100,10 +96,6 @@ int main()
         float elapsedTimeCPU = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
         std::cout << "elapsed time CPU: " << elapsedTimeCPU <<" ms" << std::endl;
         std::cout << "acceleration: " << ((elapsedTimeCPU > elapsedTimeGPU) ? elapsedTimeCPU / elapsedTimeGPU : elapsedTimeGPU / elapsedTimeCPU) << std::endl;
-        //for (int i = 0; i < n; i++)
-        //{
-        //    out2 << vector_d[i] << std::endl;
-        //}
         std::cout << "done" << std::endl;
     }
     else
