@@ -1,0 +1,3 @@
+C:/code/HCS/lab2/demoPy/build/CMakeFiles/demo_exec.dir
+C:/code/HCS/lab2/demoPy/build/CMakeFiles/ALL_BUILD.dir
+C:/code/HCS/lab2/demoPy/build/CMakeFiles/ZERO_CHECK.dir
