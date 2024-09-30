@@ -1,3 +1,0 @@
-C:/code/HCS/lab2/build/CMakeFiles/demo_exec.dir
-C:/code/HCS/lab2/build/CMakeFiles/ALL_BUILD.dir
-C:/code/HCS/lab2/build/CMakeFiles/ZERO_CHECK.dir
