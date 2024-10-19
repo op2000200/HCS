@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Users/op200/AppData/Local/Programs/Python/Python312/include",
+                "C:/code/libtorch-win-shared-with-deps-2.5.0+cu124/libtorch/include",
+                "C:/code/libtorch-win-shared-with-deps-2.5.0+cu124/libtorch/include/torch/csrc/api/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.22621.0",
+            "compilerPath": "cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        }
+    ],
+    "version": 4
+}

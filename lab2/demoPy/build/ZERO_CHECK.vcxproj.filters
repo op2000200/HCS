@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\code\HCS\lab2\demoPy\build\CMakeFiles\cf905302caa8c799a68d1ff90d885548\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{A8E82401-F52F-3850-ADDE-6D06110E186E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
