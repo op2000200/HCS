@@ -1,9 +1,16 @@
 import torch
 import lab2
 
-var = 1
+vec1 = torch.empty(5)
+vec2 = torch.empty(5)
+res = torch.empty(5)
 
-out = lab2.check(var)
+for i in range(5):
+    vec1[i] = i
+    vec2[i] = i + 1
 
-print(out)
+res = lab2.add(vec1,vec2,5)
 
+print(vec1)
+print(vec2)
+print(res)

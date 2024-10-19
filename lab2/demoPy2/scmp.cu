@@ -15,8 +15,3 @@ __host__ void scmpOnCPU(const float* vector_a_x, const float* vector_a_y, const 
         result[i] = vector_a_x[i] * vector_b_x[i] + vector_a_y[i] * vector_b_y[i];
     }
 }
-
-int check(int in)
-{
-    return in;
-}
