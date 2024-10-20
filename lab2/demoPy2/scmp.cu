@@ -17,6 +17,14 @@ __host__ void scmpOnCPU(const float* vector_a_x, const float* vector_a_y, const 
     }
 }
 
+
+torch::Tensor test_dummy(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor vec3, torch::Tensor vec4)
+{
+    torch::Tensor res = torch::empty(1);
+    return res;
+}
+
+
 torch::Tensor calcOnCpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor vec3, torch::Tensor vec4)
 {
     int size = vec1.size(0);
@@ -115,4 +123,4 @@ torch::Tensor calcOnGpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
     m.def("cpu", &calcOnCpu);
     m.def("gpu", &calcOnGpu);
-}
+    m.def("test", &test_dummy);
