@@ -20,7 +20,7 @@ def test1():
     print(vec2)
     print(vec3)
     print(vec4)
-    res = [1,2,3,4]
+    res = lab2.cpu(vec1,vec2,vec3,vec4)
     print(res)
     assert 1 == 1
 
