@@ -51,7 +51,6 @@ torch::Tensor calcOnCpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
 torch::Tensor calcOnGpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor vec3, torch::Tensor vec4)
 {
     int size = vec1.size(0);
-    std::cout << "1" << std::endl;
     float *vector_a_x, *vector_a_y, *vector_b_x, *vector_b_y, *result;
     float *d_vector_a_x, *d_vector_a_y, *d_vector_b_x, *d_vector_b_y, *d_result;
     vector_a_x = (float*)malloc(sizeof(float) * size);
@@ -63,19 +62,16 @@ torch::Tensor calcOnGpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
     vector_b_y = (float*)malloc(sizeof(float) * size);
     vector_b_y = vec4.data<float>();
     result = (float*)malloc(sizeof(float) * size);
-    std::cout << "2" << std::endl;
     cudaMalloc(&d_vector_a_x,sizeof(float) * size);
     cudaMalloc(&d_vector_a_y,sizeof(float) * size);
     cudaMalloc(&d_vector_b_x,sizeof(float) * size);
     cudaMalloc(&d_vector_b_y,sizeof(float) * size);
     cudaMalloc(&d_result,sizeof(float) * size);
-    std::cout << "3" << std::endl;
     cudaMemcpy(d_vector_a_x, vector_a_x, sizeof(float) * size, cudaMemcpyHostToDevice);
     cudaMemcpy(d_vector_a_y, vector_a_y, sizeof(float) * size, cudaMemcpyHostToDevice);
     cudaMemcpy(d_vector_b_x, vector_b_x, sizeof(float) * size, cudaMemcpyHostToDevice);
     cudaMemcpy(d_vector_b_y, vector_b_y, sizeof(float) * size, cudaMemcpyHostToDevice);
     cudaMemcpy(d_result, result, sizeof(float) * size, cudaMemcpyHostToDevice);
-    std::cout << "4" << std::endl;
     
     int bl, th;
     if (size > 1024)
@@ -88,15 +84,12 @@ torch::Tensor calcOnGpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
         th = size;
         bl = 1;
     }
-    std::cout << "5" << std::endl;
     
     scmpOnGPU <<<bl, th >>> (d_vector_a_x, d_vector_a_y, d_vector_b_x, d_vector_b_y, d_result);
 
     cudaDeviceSynchronize();
-    std::cout << "6" << std::endl;
 
     cudaMemcpy(result, d_result, sizeof(float) * size, cudaMemcpyDeviceToHost);
-    std::cout << "7" << std::endl;
     
     torch::Tensor res = torch::empty(size);
     for (int i = 0; i < size; i++)
