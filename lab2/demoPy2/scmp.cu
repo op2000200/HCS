@@ -31,8 +31,15 @@ torch::Tensor test_dummy(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor v
     vector_b_y = (float*)malloc(sizeof(float) * size);
     vector_b_y = vec4.data<float>();
     result = (float*)malloc(sizeof(float) * size);
+    scmpOnCPU(vector_a_x, vector_a_y, vector_b_x, vector_b_y, result, size);
 
-    torch::Tensor res = torch::empty(1);
+    torch::Tensor res = torch::empty(size);
+    for (int i = 0; i < size; i++)
+    {
+        res[i] = result[i];
+        std::cout << result[i] << " " << res[i] << std::endl;
+    }
+
     return res;
 }
 
