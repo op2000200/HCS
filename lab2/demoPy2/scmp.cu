@@ -32,20 +32,7 @@ torch::Tensor test_dummy(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor v
     vector_b_y = vec4.data<float>();
     result = (float*)malloc(sizeof(float) * size);
 
-    torch::Tensor res = torch::empty(size);
-    for (int i = 0; i < size; i++)
-    {
-        res[i] = 228;
-        std::cout << result[i] << " " << res[i] << std::endl;
-    }
-
-    delete[] vector_a_x;
-    delete[] vector_a_y;
-    delete[] vector_b_x;
-    delete[] vector_b_y;
-    delete[] result;
-
-
+    torch::Tensor res = torch::empty(1);
     return res;
 }
 
