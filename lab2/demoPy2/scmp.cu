@@ -66,12 +66,6 @@ torch::Tensor calcOnCpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
       std::cout << result[i] << " " << res[i] << std::endl;
     }
 
-    delete[] vector_a_x;
-    delete[] vector_a_y;
-    delete[] vector_b_x;
-    delete[] vector_b_y;
-    delete[] result;
-
     return res;
 }
 
@@ -130,11 +124,6 @@ torch::Tensor calcOnGpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
     cudaFree(d_vector_b_x);
     cudaFree(d_vector_b_y);
     cudaFree(d_result);
-    delete[] vector_a_x;
-    delete[] vector_a_y;
-    delete[] vector_b_x;
-    delete[] vector_b_y;
-    delete[] result;
 
     return res;
 }

@@ -16,7 +16,7 @@ print(vec1)
 print(vec2)
 print(vec3)
 print(vec4)
-res = lab2.test(vec1,vec2,vec3,vec4)
+res = lab2.gpu(vec1,vec2,vec3,vec4)
 print(res)
 
 
