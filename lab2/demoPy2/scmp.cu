@@ -17,33 +17,6 @@ __host__ void scmpOnCPU(const float* vector_a_x, const float* vector_a_y, const 
     }
 }
 
-
-torch::Tensor test_dummy(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor vec3, torch::Tensor vec4)
-{
-    int size = vec1.size(0);
-    float *vector_a_x, *vector_a_y, *vector_b_x, *vector_b_y, *result;
-    vector_a_x = (float*)malloc(sizeof(float) * size);
-    vector_a_x = vec1.data<float>();
-    vector_a_y = (float*)malloc(sizeof(float) * size);
-    vector_a_y = vec2.data<float>();
-    vector_b_x = (float*)malloc(sizeof(float) * size);
-    vector_b_x = vec3.data<float>();
-    vector_b_y = (float*)malloc(sizeof(float) * size);
-    vector_b_y = vec4.data<float>();
-    result = (float*)malloc(sizeof(float) * size);
-    scmpOnCPU(vector_a_x, vector_a_y, vector_b_x, vector_b_y, result, size);
-
-    torch::Tensor res = torch::empty(size);
-    for (int i = 0; i < size; i++)
-    {
-        res[i] = result[i];
-        std::cout << result[i] << " " << res[i] << std::endl;
-    }
-
-    return res;
-}
-
-
 torch::Tensor calcOnCpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor vec3, torch::Tensor vec4)
 {
     int size = vec1.size(0);
@@ -131,6 +104,4 @@ torch::Tensor calcOnGpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
     m.def("cpu", &calcOnCpu);
     m.def("gpu", &calcOnGpu);
-    m.def("test", &test_dummy);
-
 }
