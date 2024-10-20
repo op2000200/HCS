@@ -48,26 +48,75 @@ torch::Tensor calcOnCpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
     return res;
 }
 
-at::Tensor calcOnGpu(at::Tensor &vec1, at::Tensor &vec2, at::Tensor &vec3, at::Tensor &vec4)
+torch::Tensor calcOnGpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor vec3, torch::Tensor vec4)
 {
-    //torch::Device device(torch::kCUDA)
     int size = vec1.size(0);
-    at::Tensor vec1_contig = vec1.contiguous();
-    at::Tensor vec2_contig = vec2.contiguous();
-    at::Tensor vec3_contig = vec3.contiguous();
-    at::Tensor vec4_contig = vec4.contiguous();
-    at::Tensor result = torch::empty(a_contig.sizes(), a_contig.options());
-    const float* vec1_contig_ptr = vec1_contig.data_ptr<float>();
-    const float* vec2_contig_ptr = vec2_contig.data_ptr<float>();
-    const float* vec3_contig_ptr = vec3_contig.data_ptr<float>();
-    const float* vec4_contig_ptr = vec4_contig.data_ptr<float>();
-    float* result_ptr = result.data_ptr<float>();
+    std::cout << "1" << std::endl;
+    float *vector_a_x, *vector_a_y, *vector_b_x, *vector_b_y, *result;
+    float *d_vector_a_x, *d_vector_a_y, *d_vector_b_x, *d_vector_b_y, *d_result;
+    vector_a_x = (float*)malloc(sizeof(float) * size);
+    vector_a_x = vec1.data<float>();
+    vector_a_y = (float*)malloc(sizeof(float) * size);
+    vector_a_y = vec2.data<float>();
+    vector_b_x = (float*)malloc(sizeof(float) * size);
+    vector_b_x = vec3.data<float>();
+    vector_b_y = (float*)malloc(sizeof(float) * size);
+    vector_b_y = vec4.data<float>();
+    result = (float*)malloc(sizeof(float) * size);
+    std::cout << "2" << std::endl;
+    cudaMalloc(&d_vector_a_x,sizeof(float) * size);
+    cudaMalloc(&d_vector_a_y,sizeof(float) * size);
+    cudaMalloc(&d_vector_b_x,sizeof(float) * size);
+    cudaMalloc(&d_vector_b_y,sizeof(float) * size);
+    cudaMalloc(&d_result,sizeof(float) * size);
+    std::cout << "3" << std::endl;
+    cudaMemcpy(d_vector_a_x, vector_a_x, sizeof(float) * size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_vector_a_y, vector_a_y, sizeof(float) * size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_vector_b_x, vector_b_x, sizeof(float) * size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_vector_b_y, vector_b_y, sizeof(float) * size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_result, result, sizeof(float) * size, cudaMemcpyHostToDevice);
+    std::cout << "4" << std::endl;
     
-    scmpOnGPU <<<1, 10 >>> (vec1_contig_ptr, vec2_contig_ptr, vec3_contig_ptr, vec4_contig_ptr, result_ptr);
+    int bl, th;
+    if (size > 1024)
+    {
+        bl = (size / 1024) + 1;
+        th = 1024;
+    }
+    else
+    {
+        th = size;
+        bl = 1;
+    }
+    std::cout << "5" << std::endl;
+    
+    scmpOnGPU <<<bl, th >>> (d_vector_a_x, d_vector_a_y, d_vector_b_x, d_vector_b_y, d_result);
 
     cudaDeviceSynchronize();
+    std::cout << "6" << std::endl;
 
-    return result;
+    cudaMemcpy(result, d_result, sizeof(float) * size, cudaMemcpyDeviceToHost);
+    std::cout << "7" << std::endl;
+    
+    torch::Tensor res = torch::empty(size);
+    for (int i = 0; i < size; i++)
+    {
+      res[i] = result[i];
+      std::cout << result[i] << " " << res[i] << std::endl;
+    }
+
+    cudaFree(d_vector_a_x);
+    cudaFree(d_vector_a_y);
+    cudaFree(d_vector_b_x);
+    cudaFree(d_vector_b_y);
+    cudaFree(d_result);
+    delete[] vector_a_x;
+    delete[] vector_a_y;
+    delete[] vector_b_x;
+    delete[] vector_b_y;
+    delete[] result;
+
+    return res;
 }
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
