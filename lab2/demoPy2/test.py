@@ -5,6 +5,7 @@ import unittest
 
 class TestCUDAModule(unittest.TestCase):
 
+    test1_check_tensor = torch.Tensor([3, 11, 23, 39, 59])
     # Test case 1
     # CPU
     def test_cpu_1(self):
@@ -21,7 +22,8 @@ class TestCUDAModule(unittest.TestCase):
 
         res = lab2.cpu(vec1,vec2,vec3,vec4)
 
-        self.assertEqual(res, torch.Tensor({3, 11, 23, 39, 59}))
+        self.assertTrue(torch.allclose(res, self.test1_check_tensor))
+
 
     # Test case 1
     # GPU
@@ -38,7 +40,7 @@ class TestCUDAModule(unittest.TestCase):
             vec4[i] = i + 3
 
         res = lab2.gpu(vec1,vec2,vec3,vec4)
-        self.assertEqual(res, torch.Tensor({3, 11, 23, 39, 59}))
+        self.assertTrue(torch.allclose(res, self.test1_check_tensor))
 
 
 
