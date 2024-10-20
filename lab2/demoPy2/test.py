@@ -7,7 +7,7 @@ class TestCUDAModule(unittest.TestCase):
 
     # Test case 1
     # CPU
-    def test_cpu_1():
+    def test_cpu_1(self):
         vec1 = torch.empty(5)
         vec2 = torch.empty(5)
         vec3 = torch.empty(5)
@@ -24,7 +24,7 @@ class TestCUDAModule(unittest.TestCase):
 
     # Test case 1
     # GPU
-    def test_gpu_1():
+    def test_gpu_1(self):
         vec1 = torch.empty(5)
         vec2 = torch.empty(5)
         vec3 = torch.empty(5)
