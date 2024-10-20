@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/code/HCS/lab2/demoPy/build",
+  "command": "C:\\PROGRA~1\\NVIDIA~2\\CUDA\\v12.6\\bin\\nvcc.exe -forward-unknown-to-host-compiler -IC:\\code\\HCS\\lab2\\demoPy -D_WINDOWS -Xcompiler=\" /EHsc\" -Xcompiler=\" -Ob0 -Od /RTC1\" -std=c++17 \"--generate-code=arch=compute_52,code=[compute_52,sm_52]\" -Xcompiler=-MDd -Xcompiler=-Zi -x cu -c C:\\code\\HCS\\lab2\\demoPy\\demo.cu -o CMakeFiles\\demo_exec.dir\\demo.cu.obj -Xcompiler=-FdCMakeFiles\\demo_exec.dir\\,-FS",
+  "file": "C:\\code\\HCS\\lab2\\demoPy\\demo.cu",
+  "output": "CMakeFiles\\demo_exec.dir\\demo.cu.obj"
+}
+]
