@@ -20,7 +20,8 @@ class TestCUDAModule(unittest.TestCase):
             vec4[i] = i + 3
 
         res = lab2.cpu(vec1,vec2,vec3,vec4)
-        self.assertEqual(res, [3, 11, 23, 39, 59])
+
+        self.assertEqual(res, torch.Tensor({3, 11, 23, 39, 59}))
 
     # Test case 1
     # GPU
@@ -37,7 +38,7 @@ class TestCUDAModule(unittest.TestCase):
             vec4[i] = i + 3
 
         res = lab2.gpu(vec1,vec2,vec3,vec4)
-        self.assertEqual(res, [3, 11, 23, 39, 59])
+        self.assertEqual(res, torch.Tensor({3, 11, 23, 39, 59}))
 
 
 
