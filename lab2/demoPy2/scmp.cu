@@ -124,3 +124,5 @@ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
     m.def("cpu", &calcOnCpu);
     m.def("gpu", &calcOnGpu);
     m.def("test", &test_dummy);
+
+}
