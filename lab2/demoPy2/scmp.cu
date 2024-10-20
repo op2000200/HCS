@@ -1,5 +1,7 @@
 #include <torch/extension.h>
 #include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include <iostream>
 
 __global__ void scmpOnGPU(const float* vector_a_x, const float* vector_a_y, const float* vector_b_x, const float* vector_b_y, float* result)
 {
@@ -15,8 +17,9 @@ __host__ void scmpOnCPU(const float* vector_a_x, const float* vector_a_y, const 
     }
 }
 
-torch::Tensor calcOnCpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor vec3, torch::Tensor vec4, int size)
+torch::Tensor calcOnCpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor vec3, torch::Tensor vec4)
 {
+    int size = vec1.size(0);
     float *vector_a_x, *vector_a_y, *vector_b_x, *vector_b_y, *result;
     vector_a_x = (float*)malloc(sizeof(float) * size);
     vector_a_x = vec1.data<float>();
@@ -33,6 +36,7 @@ torch::Tensor calcOnCpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
     for (int i = 0; i < size; i++)
     {
       res[i] = result[i];
+      std::cout << result[i] << " " << res[i] << std::endl;
     }
 
     delete[] vector_a_x;
@@ -44,8 +48,9 @@ torch::Tensor calcOnCpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
     return res;
 }
 
-torch::Tensor calcOnGpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor vec3, torch::Tensor vec4, int size)
+torch::Tensor calcOnGpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor vec3, torch::Tensor vec4)
 {
+    int size = vec1.size(0);
     float *vector_a_x, *vector_a_y, *vector_b_x, *vector_b_y, *result;
     float *d_vector_a_x, *d_vector_a_y, *d_vector_b_x, *d_vector_b_y, *d_result;
     vector_a_x = (float*)malloc(sizeof(float) * size);
@@ -90,6 +95,7 @@ torch::Tensor calcOnGpu(torch::Tensor vec1, torch::Tensor vec2, torch::Tensor ve
     for (int i = 0; i < size; i++)
     {
       res[i] = result[i];
+      std::cout << result[i] << " " << res[i] << std::endl;
     }
 
     cudaFree(d_vector_a_x);
