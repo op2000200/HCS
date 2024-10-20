@@ -1,16 +1,18 @@
 import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 from setuptools import setup
-from torch.utils.cpp_extension import CppExtension, BuildExtension
+from torch.utils.cpp_extension import CUDAExtension, BuildExtension
 
 
 setup(
     name='lab2',
-    version='1.0',
+    version='1.2',
     ext_modules=[
-        CppExtension(
+        CUDAExtension(
             name='lab2',
-            sources=['bridge.cpp']
+            sources=['scmp.cu'],
+            extra_compile_args={'cxx': ['-O2'],
+                                'nvcc': ['-O2']}
         )
     ],
     cmdclass={
