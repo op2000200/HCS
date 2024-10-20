@@ -18,3 +18,9 @@ print(vec3)
 print(vec4)
 res = lab2.gpu(vec1,vec2,vec3,vec4)
 print(res)
+
+def test1():
+    assert 1 == 1
+
+def test2():
+    assert 1 == 2
