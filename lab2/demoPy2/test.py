@@ -3,45 +3,32 @@ import lab2
 import unittest
 
 
-class TestCUDAModule(unittest.TestCase):
+class TestCUDADotProduct(unittest.TestCase):
 
-    test1_check_tensor = torch.Tensor([3, 11, 23, 39, 59])
     # Test case 1
     # CPU
-    def test_cpu_1(self):
-        vec1 = torch.empty(5)
-        vec2 = torch.empty(5)
-        vec3 = torch.empty(5)
-        vec4 = torch.empty(5)
+    def test_cpu(self):
+        array_length = 10000
+        array_1 = torch.rand(array_length)
+        array_2 = torch.rand(array_length)
 
-        for i in range(5):
-            vec1[i] = i
-            vec2[i] = i + 1
-            vec3[i] = i + 2
-            vec4[i] = i + 3
+        result_library = lab2.cpu(array_1, array_2)
+        result_torch = torch.dot_cpu(array_1, array_2)
 
-        res = lab2.cpu(vec1,vec2,vec3,vec4)
-
-        self.assertTrue(torch.allclose(res, self.test1_check_tensor))
+        self.assertTrue(torch.allclose(result_library, result_torch))
 
 
     # Test case 1
     # GPU
-    def test_gpu_1(self):
-        vec1 = torch.empty(5)
-        vec2 = torch.empty(5)
-        vec3 = torch.empty(5)
-        vec4 = torch.empty(5)
+    def test_gpu(self):
+        array_length = 10000
+        array_1 = torch.rand(array_length)
+        array_2 = torch.rand(array_length)
 
-        for i in range(5):
-            vec1[i] = i
-            vec2[i] = i + 1
-            vec3[i] = i + 2
-            vec4[i] = i + 3
+        result_library = lab2.dot_gpu(array_1, array_2)
+        result_torch = torch.dot(array_1, array_2)
 
-        res = lab2.gpu(vec1,vec2,vec3,vec4)
-        self.assertTrue(torch.allclose(res, self.test1_check_tensor))
-
+        self.assertTrue(torch.allclose(result_library, result_torch))
 
 
 if __name__ == '__main__':
