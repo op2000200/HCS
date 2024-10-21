@@ -12,8 +12,8 @@ class TestCUDADotProduct(unittest.TestCase):
         array_1 = torch.rand(array_length)
         array_2 = torch.rand(array_length)
 
-        result_library = lab2.cpu(array_1, array_2)
-        result_torch = torch.dot_cpu(array_1, array_2)
+        result_library = lab2.dot_cpu(array_1, array_2)
+        result_torch = torch.dot(array_1, array_2)
 
         self.assertTrue(torch.allclose(result_library, result_torch))
 
