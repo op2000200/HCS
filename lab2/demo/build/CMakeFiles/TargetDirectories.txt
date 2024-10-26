@@ -1,3 +1,0 @@
-C:/code/HCS/lab2/demo/build/CMakeFiles/demo_exec.dir
-C:/code/HCS/lab2/demo/build/CMakeFiles/edit_cache.dir
-C:/code/HCS/lab2/demo/build/CMakeFiles/rebuild_cache.dir
