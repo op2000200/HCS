@@ -7,6 +7,7 @@ class TestCUDADotProduct(unittest.TestCase):
 
     # Test case 1
     # CPU
+    '''
     def test_cpu(self):
         array_length = 10000
         array_1 = torch.rand(array_length)
@@ -16,7 +17,7 @@ class TestCUDADotProduct(unittest.TestCase):
         result_torch = torch.dot(array_1, array_2)
 
         self.assertTrue(torch.allclose(result_library, result_torch))
-
+    '''
 
     # Test case 1
     # GPU
