@@ -5,12 +5,12 @@ from torch.utils.cpp_extension import CUDAExtension, BuildExtension
 
 
 setup(
-    name='lab2',
-    version='2.0',
+    name='lab3',
+    version='1.0',
     ext_modules=[
         CUDAExtension(
-            name='lab2',
-            sources=['scmp.cu'],
+            name='lab3',
+            sources=['lib.cu'],
             extra_compile_args={'cxx': ['-O2'],
                                 'nvcc': ['-O2']}
         )

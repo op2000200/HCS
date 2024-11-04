@@ -400,3 +400,6 @@ FodyWeavers.xsd
 /lab2/demo/build
 /lab2/demo/build
 /build
+/lab3/lab2.egg-info
+/lab3/build
+/lab3/lab3.egg-info
