@@ -18,28 +18,67 @@ __global__ void linear_layer(torch::PackedTensorAccessor32<float,2> X,
     auto n = blockDim.x * blockIdx.x + threadIdx.x;
     auto m = blockDim.y * blockIdx.y + threadIdx.y;
 
-    float acc = 0;
+    float buf = 0;
     if (m < X.size(0) && n < W.size(0)) 
     {
         for (int k = 0; k < X.size(1); k++) 
         {
-            acc += X[m][k] * W[n][k];
+            buf += X[m][k] * W[n][k];
         }
-        result[m][n] = acc + b[n];
+        result[m][n] = buf + b[n];
     }
 }
 
-__global__ void gradient_weight()
+__global__ void gradient_input(torch::PackedTensorAccessor32<float,2> resultInput,
+                               torch::PackedTensorAccessor32<float,2> W,
+                               torch::PackedTensorAccessor32<float,2> gradInputHolder)
 {
+    auto n = blockDim.x * blockIdx.x + threadIdx.x;
+    auto m = blockDim.y * blockIdx.y + threadIdx.y;
 
+    float buf = 0;
+    if (m < resultInput.size(0) && n < W.size(1)) {
+        for (int k = 0; k < resultInput.size(1); k++) {
+            buf += resultInput[m][k] * W[k][n];
+        }
+        gradInputHolder[m][n] = buf;
+    }
 }
 
-__global__ void gradient_bias()
+__global__ void gradient_weight(torch::PackedTensorAccessor32<float,2> resultInput,
+                                torch::PackedTensorAccessor32<float,2> Y,
+                                torch::PackedTensorAccessor32<float,2> gradWeightHolder)
 {
-
+    auto n = blockDim.x * blockIdx.x + threadIdx.x;
+    auto m = blockDim.y * blockIdx.y + threadIdx.y;
+ 
+    if (m < resultInput.size(1) && n < Y.size(1)) {
+        float buf = 0;
+        for (int k = 0; k < resultInput.size(0); k++) {
+            buf += resultInput[k][m] * Y[k][n];
+        }
+        gradWeightHolder[m][n] = buf;
+    }
 }
 
-torch::Tensor linear_layer_forward(torch::Tensor X, torch::Tensor W, torch::Tensor b)
+__global__ void gradient_bias(torch::PackedTensorAccessor32<float,2> resultInput,
+                              torch::PackedTensorAccessor32<float,1> gradBiasHolder)
+{
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+
+    int n = resultInput.size(0);
+    int m = resultInput.size(1);
+
+    if (i < m) {
+        float buf = 0;
+        for (int j = 0; j < n; j++) {
+            buf += resultInput[j][i];
+        }
+        gradBiasHolder[i] = buf;
+    }
+}
+
+torch::Tensor linear_layer_calc_result(torch::Tensor X, torch::Tensor W, torch::Tensor b)
 {
     CHECK_INPUT(X); CHECK_INPUT(W); CHECK_INPUT(b);
 
@@ -58,17 +97,54 @@ torch::Tensor linear_layer_forward(torch::Tensor X, torch::Tensor W, torch::Tens
         b.packed_accessor32<float,1>(),
         result.packed_accessor32<float,2>()
     );
+    cudaDeviceSynchronize();
     return result;
 }
 
-std::vector<torch::Tensor> linear_layer_backward()
+std::vector<torch::Tensor> linear_layer_calc_grads(torch::Tensor X, torch::Tensor W, torch::Tensor result)
 {
-    std::vector<torch::Tensor> one;
-    return one;
+    CHECK_INPUT(X); CHECK_INPUT(W); CHECK_INPUT(result);
+
+    auto x = X.packed_accessor32<float, 2>();
+    auto w = W.packed_accessor32<float, 2>();
+    auto res = result.packed_accessor32<float, 2>();
+    
+
+    int m = x.size(0);
+    int n = res.size(1);
+    int k = x.size(1);
+
+    auto options = torch::TensorOptions().dtype(torch::kF32).device(torch::kCUDA).requires_grad(true);
+
+    torch::Tensor gradientInput = torch::zeros({m, k}, options);
+    torch::Tensor gradientWeight = torch::zeros({n, k}, options);
+    torch::Tensor gradientBias = torch::zeros({n, }, options);
+
+    dim3 grid(2,2);
+    dim3 block(block_size, block_size);
+
+    gradient_input<<<grid, block>>>(
+        res,
+        w,
+        gradientInput.packed_accessor32<float, 2>()
+    );
+
+    gradient_weight<<<grid, block>>>(
+        res,
+        x,
+        gradientWeight.packed_accessor32<float, 2>()
+    );
+
+    gradient_bias<<<grid, block>>>(
+        res,
+        gradientBias.packed_accessor32<float, 1>()
+    );
+
+    return std::vector<torch::Tensor>{gradientInput, gradientWeight, gradientBias};
 }
 
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
-    m.def("linear_layer_forward", &linear_layer_forward);
-    m.def("linear_layer_backward", &linear_layer_backward);
+    m.def("linear_layer_calc_result", &linear_layer_calc_result);
+    m.def("linear_layer_calc_grads", &linear_layer_calc_grads);
 }
