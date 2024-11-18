@@ -3,22 +3,14 @@ import lab3
 import unittest
 
 
-def get_lib_result(m, n, k):
+def get_lib_result(X, W, b):
     # Gets resulting tensor from library
-
-    X = torch.randn(m, k).cuda()
-    W = torch.randn(n, k).cuda()
-    b = torch.randn(n).cuda()
 
     return lab3.linear_layer_calc_result(X, W, b)
 
 
-def get_torch_result(m, n, k):
+def get_torch_result(m, n, k, X, W, b):
     # Gets resulting tensor from library
-
-    X = torch.randn(m, k).cuda()
-    W = torch.randn(n, k).cuda()
-    b = torch.randn(n).cuda()
 
     linear_layer = torch.nn.Linear(k, n).cuda()
 
@@ -39,11 +31,12 @@ class TestCUDALinearLayer(unittest.TestCase):
         k = 2
         n = 1
 
-        lib_res = get_lib_result(m, n, k)
-        torch_res = get_torch_result(m, n, k)
+        X = torch.randn(m, k).cuda()
+        W = torch.randn(n, k).cuda()
+        b = torch.randn(n).cuda()
 
-        print(lib_res)
-        print(torch_res)
+        lib_res = get_lib_result(m, n, k)
+        torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
 
@@ -55,8 +48,12 @@ class TestCUDALinearLayer(unittest.TestCase):
         k = 4
         n = 2
 
+        X = torch.randn(m, k).cuda()
+        W = torch.randn(n, k).cuda()
+        b = torch.randn(n).cuda()
+
         lib_res = get_lib_result(m, n, k)
-        torch_res = get_torch_result(m, n, k)
+        torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
 
@@ -68,8 +65,12 @@ class TestCUDALinearLayer(unittest.TestCase):
         k = 6
         n = 6
 
+        X = torch.randn(m, k).cuda()
+        W = torch.randn(n, k).cuda()
+        b = torch.randn(n).cuda()
+
         lib_res = get_lib_result(m, n, k)
-        torch_res = get_torch_result(m, n, k)
+        torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
 
@@ -81,8 +82,12 @@ class TestCUDALinearLayer(unittest.TestCase):
         k = 10
         n = 5
 
+        X = torch.randn(m, k).cuda()
+        W = torch.randn(n, k).cuda()
+        b = torch.randn(n).cuda()
+
         lib_res = get_lib_result(m, n, k)
-        torch_res = get_torch_result(m, n, k)
+        torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
 
@@ -94,8 +99,12 @@ class TestCUDALinearLayer(unittest.TestCase):
         k = 20
         n = 10
 
+        X = torch.randn(m, k).cuda()
+        W = torch.randn(n, k).cuda()
+        b = torch.randn(n).cuda()
+
         lib_res = get_lib_result(m, n, k)
-        torch_res = get_torch_result(m, n, k)
+        torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
 
