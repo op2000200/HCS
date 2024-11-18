@@ -16,6 +16,10 @@ def get_lib_result(m, n, k):
 def get_torch_result(m, n, k):
     # Gets resulting tensor from library
 
+    X = torch.randn(m, k).cuda()
+    W = torch.randn(n, k).cuda()
+    b = torch.randn(n).cuda()
+
     linear_layer = torch.nn.Linear(k, n).cuda()
 
     with torch.no_grad():
