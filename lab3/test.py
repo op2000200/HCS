@@ -13,7 +13,7 @@ def get_lib_result(m, n, k):
     return lab3.linear_layer_calc_result(X, W, b)
 
 
-def get_torch_result(m, n, k)
+def get_torch_result(m, n, k):
     # Gets resulting tensor from library
 
     linear_layer = torch.nn.Linear(k, n).cuda()
