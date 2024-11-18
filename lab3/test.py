@@ -42,6 +42,9 @@ class TestCUDALinearLayer(unittest.TestCase):
         lib_res = get_lib_result(m, n, k)
         torch_res = get_torch_result(m, n, k)
 
+        print(lib_res)
+        print(torch_res)
+
         self.assertTrue(torch.allclose(lib_res, torch_res))
 
 
