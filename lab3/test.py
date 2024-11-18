@@ -35,7 +35,7 @@ class TestCUDALinearLayer(unittest.TestCase):
         W = torch.randn(n, k).cuda()
         b = torch.randn(n).cuda()
 
-        lib_res = get_lib_result(m, n, k)
+        lib_res = get_lib_result(X, W, b)
         torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
@@ -52,7 +52,7 @@ class TestCUDALinearLayer(unittest.TestCase):
         W = torch.randn(n, k).cuda()
         b = torch.randn(n).cuda()
 
-        lib_res = get_lib_result(m, n, k)
+        lib_res = get_lib_result(X, W, b)
         torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
@@ -69,7 +69,7 @@ class TestCUDALinearLayer(unittest.TestCase):
         W = torch.randn(n, k).cuda()
         b = torch.randn(n).cuda()
 
-        lib_res = get_lib_result(m, n, k)
+        lib_res = get_lib_result(X, W, b)
         torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
@@ -86,7 +86,7 @@ class TestCUDALinearLayer(unittest.TestCase):
         W = torch.randn(n, k).cuda()
         b = torch.randn(n).cuda()
 
-        lib_res = get_lib_result(m, n, k)
+        lib_res = get_lib_result(X, W, b)
         torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
@@ -103,7 +103,7 @@ class TestCUDALinearLayer(unittest.TestCase):
         W = torch.randn(n, k).cuda()
         b = torch.randn(n).cuda()
 
-        lib_res = get_lib_result(m, n, k)
+        lib_res = get_lib_result(X, W, b)
         torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
