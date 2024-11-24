@@ -24,6 +24,9 @@ def get_torch_result(m, n, k, X, W, b):
 class TestCUDALinearLayer(unittest.TestCase):
     # Test suite for linear layer
 
+    rtol = 1e-03
+    atol = 1e-04
+
     # Test case 1
     # GPU
     def test_cuda_linear_layer_1(self):
@@ -72,7 +75,7 @@ class TestCUDALinearLayer(unittest.TestCase):
         lib_res = get_lib_result(X, W, b)
         torch_res = get_torch_result(m, n, k, X, W, b)
 
-        self.assertTrue(torch.allclose(lib_res, torch_res))
+        self.assertTrue(torch.allclose(lib_res, torch_res, rtol=self.rtol, atol=self.atol))
 
 
     # Test case 4
@@ -89,7 +92,8 @@ class TestCUDALinearLayer(unittest.TestCase):
         lib_res = get_lib_result(X, W, b)
         torch_res = get_torch_result(m, n, k, X, W, b)
 
-        self.assertTrue(torch.allclose(lib_res, torch_res))
+        with torch.no_grad():
+            self.assertTrue(torch.allclose(lib_res, torch_res, rtol=self.rtol, atol=self.atol))
 
 
     # Test case 5

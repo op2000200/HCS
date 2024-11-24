@@ -89,7 +89,7 @@ torch::Tensor linear_layer_calc_result(torch::Tensor X, torch::Tensor W, torch::
     auto options = torch::TensorOptions().dtype(torch::kF32).device(torch::kCUDA).requires_grad(true);
     torch::Tensor result = torch::zeros({X_collumn_count,b_count},options);
 
-    dim3 grid(2,2);
+    dim3 grid(2,2); // TODO: fix the shit
     dim3 block(block_size, block_size);
     linear_layer<<<grid,block>>>(
         X.packed_accessor32<float,2>(),
@@ -120,7 +120,7 @@ std::vector<torch::Tensor> linear_layer_calc_grads(torch::Tensor X, torch::Tenso
     torch::Tensor gradientWeight = torch::zeros({n, k}, options);
     torch::Tensor gradientBias = torch::zeros({n, }, options);
 
-    dim3 grid(2,2);
+    dim3 grid(2,2); // TODO: fix the shit
     dim3 block(block_size, block_size);
 
     gradient_input<<<grid, block>>>(
