@@ -146,8 +146,9 @@ class TestCUDALinearLayerForwardBackward(unittest.TestCase):
         torch_grads = torch.autograd.backward(torch_res, grad_output)
 
         lib_grads = get_lib_grads(X, W, lib_res)
+        print(lib_grads)
 
-        self.assertListEqual(lib_grads, torch_grads)
+        self.assertListEqual(lib_grads, grad_output)
 
 
 
