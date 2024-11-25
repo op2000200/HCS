@@ -34,13 +34,14 @@ class LinearFunction(torch.autograd.Function):
 
     @staticmethod
     def forward(ctx, input, weight, bias):
-        ctx.save_for_backward(input, weight, bias)
-        return LinearFunction.backend.linear_layer_calc_result(input, weight, bias)
+        result = LinearFunction.backend.linear_layer_calc_result(input, weight, bias)
+        ctx.save_for_backward(input, weight, result)
+        return result
 
     @staticmethod
     def backward(ctx, d_output):
         d_input, d_weight, d_bias = LinearFunction.backend.linear_layer_calc_grads(
-            *ctx.saved_tensors, d_output)
+            *ctx.saved_tensors)
         return d_input, d_weight, d_bias
 
 
