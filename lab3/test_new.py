@@ -116,8 +116,8 @@ class GenericTestCase(unittest.TestCase):
         if not backward:
             return
 
-        z_.backward()   #torch.ones_like(z_)
-        z.backward()    #torch.ones_like(z)
+        z_.backward(torch.ones_like(z_))   #
+        z.backward(torch.ones_like(z))    #
 
 
         with torch.no_grad():
