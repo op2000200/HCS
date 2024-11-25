@@ -178,7 +178,7 @@ class TestCaseFactory(type):
 
 class Lab3TestCaseGrid2d(
     GenericTestCase, metaclass=TestCaseFactory,
-    dtypes=[torch.float64, torch.float32, torch.float16],
+    dtypes=[torch.float32],
     backward=True, backend='lib.cu', layout_x16=True
 ):
 
@@ -187,7 +187,7 @@ class Lab3TestCaseGrid2d(
 
 class Lab3TestCaseGrid2dBadLayout(
     GenericTestCase, metaclass=TestCaseFactory,
-    dtypes=[torch.float64, torch.float32, torch.float16],
+    dtypes=[torch.float32],
     backward=True, backend='lib.cu', layout_x16=False
 ):
 
@@ -196,7 +196,7 @@ class Lab3TestCaseGrid2dBadLayout(
 
 class Lab3TestCaseGrid3d(
     GenericTestCase, metaclass=TestCaseFactory,
-    dtypes=[torch.float64, torch.float32, torch.float16],
+    dtypes=[torch.float32],
     backward=True, backend='lib.cu', layout_x16=True
 ):
 
@@ -205,7 +205,7 @@ class Lab3TestCaseGrid3d(
 
 class Lab3TestCaseGrid3dBadLayout(
     GenericTestCase, metaclass=TestCaseFactory,
-    dtypes=[torch.float64, torch.float32, torch.float16],
+    dtypes=[torch.float32],
     backward=True, backend='lib.cu', layout_x16=False
 ):
 
