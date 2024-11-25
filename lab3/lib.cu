@@ -78,6 +78,10 @@ __global__ void gradient_bias(torch::PackedTensorAccessor32<float,2> resultInput
     }
 }
 
+int calc_grid_size(int m) {
+    return (m + block_size - 1) / block_size;
+}
+
 torch::Tensor linear_layer_calc_result(torch::Tensor X, torch::Tensor W, torch::Tensor b)
 {
     CHECK_INPUT(X); CHECK_INPUT(W); CHECK_INPUT(b);
@@ -89,7 +93,7 @@ torch::Tensor linear_layer_calc_result(torch::Tensor X, torch::Tensor W, torch::
     auto options = torch::TensorOptions().dtype(torch::kF32).device(torch::kCUDA).requires_grad(true);
     torch::Tensor result = torch::zeros({X_collumn_count,b_count},options);
 
-    dim3 grid(2,2); // TODO: fix the shit
+    dim3 grid(calc_grid_size(X_W_row_count), calc_grid_size(X_collumn_count)); // TODO: fix the shit  UPD: fixed
     dim3 block(block_size, block_size);
     linear_layer<<<grid,block>>>(
         X.packed_accessor32<float,2>(),
@@ -120,7 +124,7 @@ std::vector<torch::Tensor> linear_layer_calc_grads(torch::Tensor X, torch::Tenso
     torch::Tensor gradientWeight = torch::zeros({n, k}, options);
     torch::Tensor gradientBias = torch::zeros({n, }, options);
 
-    dim3 grid(2,2); // TODO: fix the shit
+    dim3 grid(calc_grid_size(n), calc_grid_size(m)); // TODO: fix the shit  UPD: fixed
     dim3 block(block_size, block_size);
 
     gradient_input<<<grid, block>>>(
@@ -129,13 +133,14 @@ std::vector<torch::Tensor> linear_layer_calc_grads(torch::Tensor X, torch::Tenso
         gradientInput.packed_accessor32<float, 2>()
     );
 
+    dim3 grid(calc_grid_size(k), calc_grid_size(n)); // TODO: fix the shit  UPD: fixed
     gradient_weight<<<grid, block>>>(
         res,
         x,
         gradientWeight.packed_accessor32<float, 2>()
     );
 
-    gradient_bias<<<grid, block>>>(
+    gradient_bias<<<calc_grid_size(n), block>>>(
         res,
         gradientBias.packed_accessor32<float, 1>()
     );
