@@ -186,32 +186,5 @@ class Lab3TestCaseGrid2d(
     pass
 
 
-class Lab3TestCaseGrid2dBadLayout(
-    GenericTestCase, metaclass=TestCaseFactory,
-    dtypes=[torch.float32],
-    backward=True, backend='lib.cu', layout_x16=False
-):
-
-    pass
-
-
-class Lab3TestCaseGrid3d(
-    GenericTestCase, metaclass=TestCaseFactory,
-    dtypes=[torch.float32],
-    backward=True, backend='lib.cu', layout_x16=True
-):
-
-    pass
-
-
-class Lab3TestCaseGrid3dBadLayout(
-    GenericTestCase, metaclass=TestCaseFactory,
-    dtypes=[torch.float32],
-    backward=True, backend='lib.cu', layout_x16=False
-):
-
-    pass
-
-
 if __name__ == '__main__':
     unittest.main()

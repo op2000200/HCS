@@ -9,6 +9,12 @@ def get_lib_result(X, W, b):
     return lab3.linear_layer_calc_result(X, W, b)
 
 
+def get_lib_grads(X, W, res):
+    # Gets resulting grads from library
+
+    return lab3.linear_layer_calc_grads(X, W, res)
+
+
 def get_torch_result(m, n, k, X, W, b):
     # Gets resulting tensor from library
 
@@ -111,6 +117,34 @@ class TestCUDALinearLayer(unittest.TestCase):
         torch_res = get_torch_result(m, n, k, X, W, b)
 
         self.assertTrue(torch.allclose(lib_res, torch_res))
+
+
+class TestCUDALinearLayerForwardBackward(unittest.TestCase):
+    # Test suite for linear layer
+
+    rtol = 1e-03
+    atol = 1e-04
+
+    # Test case 1
+    # GPU
+    def test_cuda_linear_layer_forward_backward_1(self):
+        m = 2
+        k = 2
+        n = 1
+
+        X = torch.randn(m, k).cuda()
+        W = torch.randn(n, k).cuda()
+        b = torch.randn(n).cuda()
+
+        lib_res = get_lib_result(X, W, b)
+        torch_res = get_torch_result(m, n, k, X, W, b)
+
+        lib_grads = get_lib_grads(X, W, lib_res)
+        torch_grads = torch.autograd.backward(torch_res)
+
+        self.assertTrue(torch.allclose(lib_grads, torch_grads))
+
+
 
 
 if __name__ == '__main__':
