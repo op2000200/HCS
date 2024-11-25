@@ -39,7 +39,7 @@ class LinearFunction(torch.autograd.Function):
         return result
 
     @staticmethod
-    def backward(ctx, d_output):
+    def backward(ctx):
         d_input, d_weight, d_bias = LinearFunction.backend.linear_layer_calc_grads(
             *ctx.saved_tensors)
         return d_input, d_weight, d_bias
@@ -116,8 +116,8 @@ class GenericTestCase(unittest.TestCase):
         if not backward:
             return
 
-        z_.backward(torch.ones_like(z_))
-        z.backward(torch.ones_like(z))
+        z_.backward()   #torch.ones_like(z_)
+        z.backward()    #torch.ones_like(z)
 
 
         with torch.no_grad():
