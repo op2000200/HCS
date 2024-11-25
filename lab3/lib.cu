@@ -133,8 +133,8 @@ std::vector<torch::Tensor> linear_layer_calc_grads(torch::Tensor X, torch::Tenso
         gradientInput.packed_accessor32<float, 2>()
     );
 
-    dim3 grid(calc_grid_size(k), calc_grid_size(n)); // TODO: fix the shit  UPD: fixed
-    gradient_weight<<<grid, block>>>(
+    dim3 grid1(calc_grid_size(k), calc_grid_size(n)); // TODO: fix the shit  UPD: fixed
+    gradient_weight<<<grid1, block>>>(
         res,
         x,
         gradientWeight.packed_accessor32<float, 2>()
