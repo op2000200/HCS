@@ -21,7 +21,7 @@ class LinearFunction(torch.autograd.Function):
             os.makedirs(build_dir)
 
         LinearFunction.backend = cpp_extension.load(
-            name='my_extension',
+            name='lab3',
             sources=backend_source,
             extra_cuda_cflags=[
                 '-std=c++17',
