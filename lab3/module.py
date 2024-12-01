@@ -13,14 +13,17 @@ class SimpleNN(nn.Module):
         super().__init__()
         self.in_features = in_features
         self.out_features = out_features
-        self.weight = torch.empty((out_features, in_features), **factory_kwargs)
-        self.weight = self.weight.cuda()
-        self.bias = torch.empty(out_features, **factory_kwargs)
-        self.bias = self.bias.cuda()
+        self.weight = nn.Parameter(torch.empty((out_features, in_features), **factory_kwargs).cuda())
+        self.bias = nn.Parameter(torch.empty(out_features, **factory_kwargs).cuda())
         self.reset_parametrs()
 
     def forward(self, x):
-        return lab3.linear_layer_calc_result(x, self.weight, self.bias)
+        self.x = x
+        self.y = lab3.linear_layer_calc_result(x, self.weight, self.bias)
+        return self.y
+
+    def backward(self):
+        return lab3.linear_layer_calc_grads(self.x, self.weight, self.y)
     
     def reset_parametrs(self):
         nn . init . kaiming_uniform_ (self.weight , a = math . sqrt (5) )
@@ -35,4 +38,6 @@ model = SimpleNN(5, 3)
 
 # Получаем предсказание
 output = model(X)
+print("Output:", output)
+output = model.backward()
 print("Output:", output)
