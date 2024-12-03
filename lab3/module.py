@@ -3,6 +3,21 @@ import torch.nn as nn
 import math
 import lab3
 
+class Layer(torch.autograd.Function):
+    @staticmethod
+    def forward(ctx, x, w, b):
+        ctx.save_for_backward(x, w, b)
+
+        y = lab3.linear_layer_calc_result(x, w, b)
+        return y
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        x, w, b = ctx.saved_tensors
+
+        grad_input, grad_weight, grad_bias = lab3.linear_layer_calc_grads(x, w, grad_output)
+        return grad_input, grad_weight, grad_bias
+    
 class SimpleNN(nn.Module):
     in_features: int
     out_features: int
@@ -18,26 +33,23 @@ class SimpleNN(nn.Module):
         self.reset_parametrs()
 
     def forward(self, x):
-        self.x = x
-        self.y = lab3.linear_layer_calc_result(x, self.weight, self.bias)
+        self.y = Layer.apply(x, self.weight, self.bias)
         return self.y
-
-    def backward(self):
-        return lab3.linear_layer_calc_grads(self.x, self.weight, self.y)
     
     def reset_parametrs(self):
-        nn . init . kaiming_uniform_ (self.weight , a = math . sqrt (5) )
-        fan_in , _ = nn . init . _calculate_fan_in_and_fan_out ( self.weight )
-        bound = 1 / math . sqrt ( fan_in ) if fan_in > 0 else 0
-        nn . init . uniform_ (self.bias , - bound , bound )
+        nn.init.kaiming_uniform_ (self.weight, a = math.sqrt (5) )
+        fan_in, _ = nn.init._calculate_fan_in_and_fan_out ( self.weight )
+        bound = 1 / math.sqrt ( fan_in ) if fan_in > 0 else 0
+        nn.init.uniform_ (self.bias, - bound, bound )
 
-X = torch.randn(5, 4).cuda()
+X = torch.randn(100, 100, requires_grad=True).cuda()
 
 # Создаем экземпляр модели
-model = SimpleNN(5, 3)
+model = SimpleNN(100, 100)
 
 # Получаем предсказание
 output = model(X)
 print("Output:", output)
-output = model.backward()
-print("Output:", output)
+loss = output.sum()
+loss.backward()
+print("Gradients:", X.grad)
