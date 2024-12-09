@@ -3,6 +3,7 @@ import torch.nn as nn
 import math
 import lab3
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class Layer(torch.autograd.Function):
     @staticmethod
     def forward(ctx, x, w, b):
@@ -14,7 +15,6 @@ class Layer(torch.autograd.Function):
     @staticmethod
     def backward(ctx, grad_output):
         x, w, b = ctx.saved_tensors
-
         grad_input, grad_weight, grad_bias = lab3.linear_layer_calc_grads(x, w, grad_output)
         return grad_input, grad_weight, grad_bias
     
@@ -42,14 +42,14 @@ class SimpleNN(nn.Module):
         bound = 1 / math.sqrt ( fan_in ) if fan_in > 0 else 0
         nn.init.uniform_ (self.bias, - bound, bound )
 
-X = torch.randn(100, 100, requires_grad=True).cuda()
+X = torch.randn(100, 100, requires_grad=True, device=device)
 
 # Создаем экземпляр модели
-model = SimpleNN(100, 100)
+model = SimpleNN(100, 100).to(device)
 
 # Получаем предсказание
 output = model(X)
 print("Output:", output)
-loss = output.sum()
+loss = output.cuda().sum()
 loss.backward()
 print("Gradients:", X.grad)
