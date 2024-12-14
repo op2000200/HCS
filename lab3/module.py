@@ -42,10 +42,10 @@ class SimpleNN(nn.Module):
         bound = 1 / math.sqrt ( fan_in ) if fan_in > 0 else 0
         nn.init.uniform_ (self.bias, - bound, bound )
 
-X = torch.randn(100, 100, requires_grad=True, device=device)
+X = torch.randn(16, 16, requires_grad=True, device=device)
 
 # Создаем экземпляр модели
-model = SimpleNN(100, 100).to(device)
+model = SimpleNN(16, 16).to(device)
 
 # Получаем предсказание
 output = model(X)
