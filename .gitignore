@@ -403,3 +403,17 @@ FodyWeavers.xsd
 /lab3/lab2.egg-info
 /lab3/build
 /lab3/lab3.egg-info
+/lab5/data
+lab5/model.pt
+lab5/model_acc_0.09995994716882706.pt
+lab5/model_acc_0.40_myLayer.pt
+lab5/model_acc_0.76_standart_linear.pt
+/lab5/build
+/lab5/lab3.egg-info
+/.vscode
+/.vscode
+.vscode/settings.json
+/.vscode
+lab5/lib2.cu
+lab5/lab5_ver2.py
+lab5/lab5.py
