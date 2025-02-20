@@ -101,9 +101,9 @@ def improved_train_iteration(
     net, epochs,
     lr=0.005, device='cuda:0',
     bar_label='Training',
-    patience=10,
+    patience=5,
     reduce_lr_factor=0.5,
-    reduce_lr_patience=1,
+    reduce_lr_patience=2,
     accuracy_history=False,
     make_checkpoints=True
 ):

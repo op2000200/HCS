@@ -72,7 +72,7 @@ def test(net, test_data, num_classes,
     f = torch.zeros(num_classes, device=device)
 
     if use_saved_model:
-        net.load_state_dict(torch.load('model_acc_0.40915459394454956.pt'))
+        net.load_state_dict(torch.load('path'))
 
     net.to(device)
 

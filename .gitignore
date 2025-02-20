@@ -417,3 +417,4 @@ lab5/model_acc_0.76_standart_linear.pt
 lab5/lib2.cu
 lab5/lab5_ver2.py
 lab5/lab5.py
+.vscode/settings.json
